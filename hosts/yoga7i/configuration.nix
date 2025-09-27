@@ -10,10 +10,10 @@
       ./hardware-configuration.nix
       ../../modules/hardware/boot.nix
       ../../modules/hardware/network.nix
-      ../../modules/hardware/power.nix
+#      ../../modules/hardware/power.nix
       ../../modules/desktop/river.nix
       ../../modules/dev/base.nix
-      ../../modules/login/agreety.nix
+#      ../../modules/login/agreety.nix
     ];
 
 
@@ -63,8 +63,8 @@
     printing.enable = false;
 
     # Bluetooth (opcional)
-    hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
+#    hardware.bluetooth.enable = true;
+#   services.blueman.enable = true;
   };
 
   # Configuración de hardware

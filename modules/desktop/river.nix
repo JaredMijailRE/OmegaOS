@@ -3,7 +3,7 @@
 {
   # Instalar River y herramientas de Wayland (disponibles para todos los usuarios)
   environment.systemPackages = with pkgs; [
-    river
+    river-classic
     wayland
     wl-clipboard
     grim
@@ -24,6 +24,7 @@
     # Iniciar River
     exec river
   '';
+  environment.etc."river/init".mode = "0755";
 
   # Configuración de River
   environment.etc."river/config".text = ''
