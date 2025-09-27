@@ -13,7 +13,7 @@
     # Configuración del login por defecto
     settings = {
       default_session = {
-        command = "${pkgs.greetd.agreety}/bin/agreety --cmd ${pkgs.river}/bin/river";
+        command = "${pkgs.greetd.agreety}/bin/agreety --cmd ${pkgs.river-classic}/bin/river";
         user = "turing";
       };
 
@@ -23,7 +23,4 @@
       };
     };
   };
-
-  # Configuración de usuario para greetd
-  users.users.turing.extraGroups = [ "greetd" ];
 }
