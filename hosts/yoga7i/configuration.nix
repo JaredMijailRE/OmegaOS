@@ -68,19 +68,19 @@
   };
 
   # Configuración de hardware
-  hardware = {
-    # Audio
-    pulseaudio.enable = false;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-    };
+  # hardware = {
+  #   # Audio
+  #   pulseaudio.enable = false;
+  #   pipewire = {
+  #     enable = true;
+  #     alsa.enable = true;
+  #     pulse.enable = true;
+  #   };
 
-    # Opengl
-    opengl.enable = true;
-    opengl.driSupport = true;
-  };
+  #   # Opengl
+  #   opengl.enable = true;
+  #   opengl.driSupport = true;
+  # };
 
   # Configuración de usuarios
   users.users.turing = {
