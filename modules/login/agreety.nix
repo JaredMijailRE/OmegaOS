@@ -3,7 +3,7 @@
 {
   # Instalar greetd y agreety
   environment.systemPackages = with pkgs; [
-    greetd.agreety  # Agrega agreety (ya viene con greetd)
+    greetd.agreety
   ];
 
   # Activar greetd como display manager
@@ -14,13 +14,16 @@
     settings = {
       default_session = {
         command = "${pkgs.greetd.agreety}/bin/agreety --cmd ${pkgs.river}/bin/river";
-        user = "turing"; # o tu usuario si quieres auto-login
+        user = "turing";
       };
 
-      # Si quieres que greetd use la terminal VT1
+      # Configuración de terminal
       terminal = {
         vt = 1;
       };
     };
   };
+
+  # Configuración de usuario para greetd
+  users.users.turing.extraGroups = [ "greetd" ];
 }

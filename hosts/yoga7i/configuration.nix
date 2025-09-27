@@ -10,6 +10,10 @@
       ./hardware-configuration.nix
       ../../modules/hardware/boot.nix
       ../../modules/hardware/network.nix
+      ../../modules/hardware/power.nix
+      ../../modules/desktop/river.nix
+      ../../modules/dev/base.nix
+      ../../modules/login/agreety.nix
     ];
 
 
@@ -35,6 +39,58 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
-  }; 
+  };
+
+  # Configuración adicional del sistema
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config.allowUnfree = true;
+
+  # Configuración de seguridad
+  security.sudo.wheelNeedsPassword = false;
+
+  # Configuración de servicios
+  services = {
+    # SSH
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
+    };
+
+    # Printing (opcional)
+    printing.enable = false;
+
+    # Bluetooth (opcional)
+    hardware.bluetooth.enable = true;
+    services.blueman.enable = true;
+  };
+
+  # Configuración de hardware
+  hardware = {
+    # Audio
+    pulseaudio.enable = false;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
+
+    # Opengl
+    opengl.enable = true;
+    opengl.driSupport = true;
+  };
+
+  # Configuración de usuarios
+  users.users.turing = {
+    isNormalUser = true;
+    description = "turing";
+    extraGroups = [ "networkmanager" "wheel" "audio" "video" "input" "plugdev" "power" ];
+    packages = with pkgs; [];
+  };
+
+  # Configuración de sistema
+  system.stateVersion = "25.05";
 
 }
