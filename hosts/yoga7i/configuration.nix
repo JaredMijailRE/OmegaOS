@@ -68,7 +68,7 @@
   };
 
   # Configuración de hardware
-  # hardware = {
+  hardware = {
   #   # Audio
   #   pulseaudio.enable = false;
   #   pipewire = {
@@ -78,15 +78,19 @@
   #   };
 
   #   # Opengl
-  #   opengl.enable = true;
-  #   opengl.driSupport = true;
-  # };
+     graphics.enable = true;
+     graphics.enable32Bit = true;
+     graphics.extraPackages = with pkgs;
+      [
+         intel-media-driver
+      ];
+  };
 
   # Configuración de usuarios
   users.users.turing = {
     isNormalUser = true;
     description = "turing";
-    extraGroups = [ "networkmanager" "wheel" "audio" "video" "input" "plugdev" "power" ];
+    extraGroups =  ["seat"  "networkmanager" "wheel" "audio" "video" "input" "plugdev" "power" ];
     packages = with pkgs; [];
   };
 
