@@ -3,7 +3,7 @@
 {
   # Instalar greetd y agreety
   environment.systemPackages = with pkgs; [
-    greetd.agreety
+    greetd
   ];
 
   # Activar greetd como display manager
@@ -13,7 +13,7 @@
     # Configuración del login por defecto
     settings = {
       default_session = {
-        command = "${pkgs.greetd.agreety}/bin/agreety --cmd ${pkgs.river-classic}/bin/river";
+        command = "${pkgs.greetd}/bin/agreety --cmd ${pkgs.river-classic}/bin/river";
         user = "turing";
       };
 

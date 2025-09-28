@@ -10,10 +10,10 @@
       ./hardware-configuration.nix
       ../../modules/hardware/boot.nix
       ../../modules/hardware/network.nix
-#      ../../modules/hardware/power.nix
+      ../../modules/hardware/power.nix
       ../../modules/desktop/river.nix
       ../../modules/dev/base.nix
-#      ../../modules/login/agreety.nix
+      ../../modules/login/agreety.nix
     ];
 
 

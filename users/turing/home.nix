@@ -59,29 +59,83 @@
     XDG_SESSION_TYPE = "wayland";
   };
 
-  # Configuración mínima de River para diagnosticar problemas
+  # Configuración funcional de River
   xdg.configFile."river/init" = {
     text = ''
       #!/bin/sh
-      # Configuración mínima de River para debug
+      # Configuración funcional de River
 
-      # Crear archivo de log para debug
-      echo "River init script ejecutado: $(date)" > /tmp/river-debug.log
-
-      # Log de debug
-      riverctl log-level debug
+      # Configurar nivel de log
+      riverctl log-level info
 
       # Declarar modo normal
       riverctl declare-mode normal
 
-      # SOLO UN COMANDO PARA PROBAR
+      # Atajos básicos esenciales
       riverctl map normal Super+Q exit
+      riverctl map normal Super+Shift+E exit
 
-      # Si funciona, agregar más comandos uno por uno
-      riverctl map normal Super+T spawn kitty
+      # Aplicaciones
+      riverctl map normal Super+Return spawn kitty
+      riverctl map normal Super+D spawn fuzzel
+      riverctl map normal Super+Shift+B spawn zen-browser
 
-      # Log de que los comandos se configuraron
-      echo "Comandos de River configurados: $(date)" >> /tmp/river-debug.log
+      # Navegación de ventanas
+      riverctl map normal Super+J focus-view next
+      riverctl map normal Super+K focus-view previous
+      riverctl map normal Super+Shift+J swap next
+      riverctl map normal Super+Shift+K swap previous
+
+      # Cambiar tamaño de ventanas
+      riverctl map normal Super+H resize-view left -100
+      riverctl map normal Super+L resize-view right -100
+      riverctl map normal Super+Shift+H resize-view left +100
+      riverctl map normal Super+Shift+L resize-view right +100
+
+      # Mover ventanas
+      riverctl map normal Super+Shift+Left move left
+      riverctl map normal Super+Shift+Right move right
+      riverctl map normal Super+Shift+Up move up
+      riverctl map normal Super+Shift+Down move down
+
+      # Cambiar layout
+      riverctl map normal Super+Space toggle-float
+      riverctl map normal Super+F toggle-fullscreen
+
+      # Tags/Workspaces
+      riverctl map normal Super+1 send-to-tags 1
+      riverctl map normal Super+2 send-to-tags 2
+      riverctl map normal Super+3 send-to-tags 3
+      riverctl map normal Super+4 send-to-tags 4
+      riverctl map normal Super+5 send-to-tags 5
+
+      riverctl map normal Super+Mod1+1 focus-tags 1
+      riverctl map normal Super+Mod1+2 focus-tags 2
+      riverctl map normal Super+Mod1+3 focus-tags 3
+      riverctl map normal Super+Mod1+4 focus-tags 4
+      riverctl map normal Super+Mod1+5 focus-tags 5
+
+      # Configuración de entrada
+      riverctl input pointer-accel -0.5
+      riverctl input pointer-accel-profile flat
+
+      # Configuración de salida (pantalla)
+      riverctl output-layout horizontal
+
+      # Configuración de ventanas
+      riverctl set-cursor-warp normal
+      riverctl set-focus-follows-cursor normal
+
+      # Configuración de bordes
+      riverctl border-width 2
+      riverctl border-color-focused 0x458588
+      riverctl border-color-unfocused 0x3c3836
+
+      # Configuración de fondo
+      riverctl background-color 0x282828
+
+      # Configuración de XWayland
+      riverctl xwayland disable
     '';
     executable = true;
   };
