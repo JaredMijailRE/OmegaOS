@@ -9,6 +9,9 @@
     grim
     slurp
     wf-recorder
+    # Herramientas adicionales para River
+    rivertile
+    emacs
   ];
 
   # La configuración de River se maneja en home-manager a través de xdg.configFile
