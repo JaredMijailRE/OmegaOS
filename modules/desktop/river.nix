@@ -10,6 +10,7 @@
     slurp
     wf-recorder
     # Herramientas adicionales para River
+    rivertile
     emacs
   ];
 
