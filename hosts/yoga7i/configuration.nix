@@ -92,7 +92,9 @@
     isNormalUser = true;
     description = "turing";
     extraGroups =  ["seat"  "networkmanager" "wheel" "audio" "video" "input" "plugdev" "power" ];
-    packages = with pkgs; [];
+    packages = with pkgs; [
+      # Solo River para el menú de selección de sesiones
+    ];
   };
 
   # Configuración de sistema
