@@ -59,51 +59,29 @@
     XDG_SESSION_TYPE = "wayland";
   };
 
-  # Configuración de River usando la configuración original
+  # Configuración mínima de River para diagnosticar problemas
   xdg.configFile."river/init" = {
     text = ''
       #!/bin/sh
-      # Configuración de River en NixOS
+      # Configuración mínima de River para debug
 
-      # Configurar variables de entorno
-      export XDG_CURRENT_DESKTOP=river
-      export XDG_SESSION_DESKTOP=river
-      export XDG_SESSION_TYPE=wayland
+      # Crear archivo de log para debug
+      echo "River init script ejecutado: $(date)" > /tmp/river-debug.log
 
-      # Debug: Verificar que riverctl funciona
+      # Log de debug
       riverctl log-level debug
 
-      # Declarar modos primero
+      # Declarar modo normal
       riverctl declare-mode normal
-      riverctl declare-mode locked
 
-      # Configuración básica de River - COMANDOS ESENCIALES
+      # SOLO UN COMANDO PARA PROBAR
       riverctl map normal Super+Q exit
+
+      # Si funciona, agregar más comandos uno por uno
       riverctl map normal Super+T spawn kitty
-      riverctl map normal Super+Space spawn fuzzel
-      riverctl map normal Super+Z spawn zen-browser
-      riverctl map normal Super+Shift+Q close
 
-      # Navegación básica
-      riverctl map normal Super+J focus-view next
-      riverctl map normal Super+K focus-view previous
-
-      # Float y fullscreen
-      riverctl map normal Super+Shift+Space toggle-float
-      riverctl map normal Super+F toggle-fullscreen
-
-      # Layout básico (usando layout por defecto de River)
-      riverctl map normal Super+Up layout rivertile main-ratio -0.05
-      riverctl map normal Super+Down layout rivertile main-ratio +0.05
-
-      # Bloquear pantalla
-      riverctl map normal Super+Shift+L enter-mode locked
-      riverctl map locked Super+Shift+L enter-mode normal
-      riverctl map locked Super+Shift+Q exit
-
-      # Screenshots
-      riverctl map normal None Print spawn 'grim -g "$(slurp)" - | wl-copy'
-      riverctl map normal Shift+Print spawn 'grim - | wl-copy'
+      # Log de que los comandos se configuraron
+      echo "Comandos de River configurados: $(date)" >> /tmp/river-debug.log
     '';
     executable = true;
   };
