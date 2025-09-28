@@ -73,9 +73,6 @@
       # Debug: Verificar que riverctl funciona
       riverctl log-level debug
 
-      # Iniciar rivertile como proceso en segundo plano
-      rivertile &
-
       # Declarar modos primero
       riverctl declare-mode normal
       riverctl declare-mode locked
@@ -95,7 +92,7 @@
       riverctl map normal Super+Shift+Space toggle-float
       riverctl map normal Super+F toggle-fullscreen
 
-      # Layout básico (solo si rivertile está funcionando)
+      # Layout básico (usando layout por defecto de River)
       riverctl map normal Super+Up layout rivertile main-ratio -0.05
       riverctl map normal Super+Down layout rivertile main-ratio +0.05
 
