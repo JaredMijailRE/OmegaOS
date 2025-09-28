@@ -57,7 +57,6 @@
         PermitRootLogin = "no";
         PasswordAuthentication = true;  # Habilitar autenticación por contraseña temporalmente
         PubkeyAuthentication = true;     # También permitir claves SSH
-        X11Forwarding = true;            # Para aplicaciones gráficas
       };
     };
 

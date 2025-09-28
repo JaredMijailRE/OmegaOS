@@ -7,6 +7,8 @@
     git
     neovim
 
+
+    nodejs
     docker
     go
     python3
