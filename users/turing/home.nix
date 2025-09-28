@@ -70,49 +70,27 @@
       export XDG_SESSION_DESKTOP=river
       export XDG_SESSION_TYPE=wayland
 
+      # Debug: Verificar que riverctl funciona
+      riverctl log-level debug
+
       # Declarar modos primero
       riverctl declare-mode normal
       riverctl declare-mode locked
 
-      # Configuración básica de River
+      # Configuración básica de River - COMANDOS ESENCIALES
       riverctl map normal Super+Q exit
       riverctl map normal Super+T spawn kitty
       riverctl map normal Super+Space spawn fuzzel
       riverctl map normal Super+Z spawn zen-browser
-      riverctl map normal Super+Shift+? spawn "emacsclient -c -a emacs"
       riverctl map normal Super+Shift+Q close
 
-      # Layout y navegación
+      # Navegación básica
       riverctl map normal Super+J focus-view next
       riverctl map normal Super+K focus-view previous
-      riverctl map normal Super+Shift+J swap next
-      riverctl map normal Super+Shift+K swap previous
 
       # Float y fullscreen
       riverctl map normal Super+Shift+Space toggle-float
       riverctl map normal Super+F toggle-fullscreen
-
-      # Focus entre outputs
-      riverctl map normal Super+Left focus-output next
-      riverctl map normal Super+Right focus-output previous
-
-      # Move ventanas
-      riverctl map normal Super+Shift+Left move left
-      riverctl map normal Super+Shift+Right move right
-      riverctl map normal Super+Shift+Down move down
-      riverctl map normal Super+Shift+Up move up
-
-      # Resize ventanas
-      riverctl map normal Super+H resize horizontal -100
-      riverctl map normal Super+L resize horizontal +100
-      riverctl map normal Super+Shift+H resize vertical -100
-      riverctl map normal Super+Shift+L resize vertical +100
-
-      # Layout rivertile
-      riverctl map normal Super+Up layout rivertile main-ratio -0.05
-      riverctl map normal Super+Down layout rivertile main-ratio +0.05
-      riverctl map normal Super+Left layout rivertile main-count -1
-      riverctl map normal Super+Right layout rivertile main-count +1
 
       # Bloquear pantalla
       riverctl map normal Super+Shift+L enter-mode locked
