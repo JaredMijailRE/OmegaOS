@@ -54,7 +54,7 @@
     openssh = {
       enable = true;
       settings = {
-        PermitRootLogin = "no";
+        PermitRootLogin = "yes";
         PasswordAuthentication = true;  # Habilitar autenticación por contraseña temporalmente
         PubkeyAuthentication = true;     # También permitir claves SSH
       };
