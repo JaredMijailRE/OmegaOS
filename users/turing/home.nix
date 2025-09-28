@@ -52,7 +52,7 @@
   # Variables de entorno
   home.sessionVariables = {
     EDITOR = "nvim";
-    BROWSER = "zen";
+    BROWSER = "zen-browser";
     TERMINAL = "kitty";
     XDG_CURRENT_DESKTOP = "river";
     XDG_SESSION_DESKTOP = "river";
@@ -78,7 +78,7 @@
       riverctl map normal Super+Q exit
       riverctl map normal Super+T spawn kitty
       riverctl map normal Super+Space spawn fuzzel
-      riverctl map normal Super+B spawn zen
+      riverctl map normal Super+Z spawn zen-browser
       riverctl map normal Super+Shift+? spawn "emacsclient -c -a emacs"
       riverctl map normal Super+Shift+Q close
 
