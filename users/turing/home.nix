@@ -78,6 +78,7 @@
       riverctl map normal Super+Q exit
       riverctl map normal Super+T spawn kitty
       riverctl map normal Super+Space spawn fuzzel
+      riverctl map normal Super+B spawn zen
       riverctl map normal Super+Shift+? spawn "emacsclient -c -a emacs"
       riverctl map normal Super+Shift+Q close
 
