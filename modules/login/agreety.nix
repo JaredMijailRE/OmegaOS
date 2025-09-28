@@ -7,12 +7,12 @@
   ];
 
   # Crear archivos .desktop para las sesiones
-  environment.etc."xdg/wayland-sessions/river.desktop" = {
+  environment.etc."xdg/wayland-sessions/sway.desktop" = {
     text = ''
       [Desktop Entry]
-      Name=River
-      Comment=River Wayland Compositor
-      Exec=env XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=river ${pkgs.river-classic}/bin/river
+      Name=Sway
+      Comment=Sway Wayland Compositor
+      Exec=env XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=sway ${pkgs.sway}/bin/sway
       Type=Application
     '';
   };

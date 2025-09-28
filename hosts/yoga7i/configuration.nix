@@ -93,7 +93,8 @@
     description = "turing";
     extraGroups =  ["seat"  "networkmanager" "wheel" "audio" "video" "input" "plugdev" "power" ];
     packages = with pkgs; [
-      # Solo River para el menú de selección de sesiones
+      firefox  # Para probar aplicaciones en Sway
+      sway  # Window manager principal
     ];
   };
 

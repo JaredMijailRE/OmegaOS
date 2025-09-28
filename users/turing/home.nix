@@ -52,92 +52,96 @@
   # Variables de entorno
   home.sessionVariables = {
     EDITOR = "nvim";
-    BROWSER = "zen-browser";
+    BROWSER = "firefox";
     TERMINAL = "kitty";
-    XDG_CURRENT_DESKTOP = "river";
-    XDG_SESSION_DESKTOP = "river";
+    XDG_CURRENT_DESKTOP = "sway";
+    XDG_SESSION_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
   };
 
-  # Configuración funcional de River
-  xdg.configFile."river/init" = {
+  # Configuración simple de Sway
+  xdg.configFile."sway/config" = {
     text = ''
-      #!/bin/sh
-      # Configuración funcional de River
+      # Configuración básica de Sway sin efectos
 
-      # Configurar nivel de log
-      riverctl log-level info
+      # Variables de entorno
+      set $mod Mod4
 
-      # Declarar modo normal
-      riverctl declare-mode normal
+      # Modo por defecto
+      set $mode default
 
       # Atajos básicos esenciales
-      riverctl map normal Super+Q exit
-      riverctl map normal Super+Shift+E exit
-
-      # Aplicaciones
-      riverctl map normal Super+Return spawn kitty
-      riverctl map normal Super+D spawn fuzzel
-      riverctl map normal Super+Shift+B spawn zen-browser
+      bindsym $mod+Shift+q exit
+      bindsym $mod+Return exec kitty
+      bindsym $mod+d exec fuzzel
+      bindsym $mod+b exec firefox
+      
+      # Cerrar aplicaciones
+      bindsym $mod+Shift+c kill
+      bindsym $mod+q kill
 
       # Navegación de ventanas
-      riverctl map normal Super+J focus-view next
-      riverctl map normal Super+K focus-view previous
-      riverctl map normal Super+Shift+J swap next
-      riverctl map normal Super+Shift+K swap previous
-
-      # Cambiar tamaño de ventanas
-      riverctl map normal Super+H resize-view left -100
-      riverctl map normal Super+L resize-view right -100
-      riverctl map normal Super+Shift+H resize-view left +100
-      riverctl map normal Super+Shift+L resize-view right +100
+      bindsym $mod+j focus down
+      bindsym $mod+k focus up
+      bindsym $mod+h focus left
+      bindsym $mod+l focus right
 
       # Mover ventanas
-      riverctl map normal Super+Shift+Left move left
-      riverctl map normal Super+Shift+Right move right
-      riverctl map normal Super+Shift+Up move up
-      riverctl map normal Super+Shift+Down move down
+      bindsym $mod+Shift+j move down
+      bindsym $mod+Shift+k move up
+      bindsym $mod+Shift+h move left
+      bindsym $mod+Shift+l move right
 
-      # Cambiar layout
-      riverctl map normal Super+Space toggle-float
-      riverctl map normal Super+F toggle-fullscreen
+      # Cambiar tamaño de ventanas
+      bindsym $mod+Shift+Left resize shrink width 10px
+      bindsym $mod+Shift+Right resize grow width 10px
+      bindsym $mod+Shift+Down resize grow height 10px
+      bindsym $mod+Shift+Up resize shrink height 10px
 
-      # Tags/Workspaces
-      riverctl map normal Super+1 send-to-tags 1
-      riverctl map normal Super+2 send-to-tags 2
-      riverctl map normal Super+3 send-to-tags 3
-      riverctl map normal Super+4 send-to-tags 4
-      riverctl map normal Super+5 send-to-tags 5
+      # Layout
+      bindsym $mod+s layout stacking
+      bindsym $mod+w layout tabbed
+      bindsym $mod+e layout toggle split
+      bindsym $mod+f fullscreen toggle
+      bindsym $mod+Shift+space floating toggle
 
-      riverctl map normal Super+Mod1+1 focus-tags 1
-      riverctl map normal Super+Mod1+2 focus-tags 2
-      riverctl map normal Super+Mod1+3 focus-tags 3
-      riverctl map normal Super+Mod1+4 focus-tags 4
-      riverctl map normal Super+Mod1+5 focus-tags 5
+      # Workspaces
+      bindsym $mod+1 workspace number 1
+      bindsym $mod+2 workspace number 2
+      bindsym $mod+3 workspace number 3
+      bindsym $mod+4 workspace number 4
+      bindsym $mod+5 workspace number 5
 
-      # Configuración de entrada
-      riverctl input pointer-accel -0.5
-      riverctl input pointer-accel-profile flat
-
-      # Configuración de salida (pantalla)
-      riverctl output-layout horizontal
+      bindsym $mod+Shift+1 move container to workspace number 1
+      bindsym $mod+Shift+2 move container to workspace number 2
+      bindsym $mod+Shift+3 move container to workspace number 3
+      bindsym $mod+Shift+4 move container to workspace number 4
+      bindsym $mod+Shift+5 move container to workspace number 5
 
       # Configuración de ventanas
-      riverctl set-cursor-warp normal
-      riverctl set-focus-follows-cursor normal
+      default_border pixel 2
+      default_floating_border pixel 2
+      hide_edge_borders smart
 
-      # Configuración de bordes
-      riverctl border-width 2
-      riverctl border-color-focused 0x458588
-      riverctl border-color-unfocused 0x3c3836
+      # Colores simples
+      client.focused #458588 #458588 #ffffff #458588
+      client.focused_inactive #3c3836 #3c3836 #ffffff #3c3836
+      client.unfocused #3c3836 #3c3836 #ffffff #3c3836
 
-      # Configuración de fondo
-      riverctl background-color 0x282828
+      # Configuración de entrada
+      input type:keyboard {
+        xkb_layout us
+        xkb_variant ""
+      }
 
-      # Configuración de XWayland
-      riverctl xwayland disable
+      input type:touchpad {
+        tap enabled
+        natural_scroll enabled
+      }
+
+      # Configuración de salida
+      output * bg #000000 solid_color
     '';
-    executable = true;
   };
 
   # Configuración de servicios
