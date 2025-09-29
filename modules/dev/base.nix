@@ -6,7 +6,21 @@
     kitty
     git
     neovim
-
+    # Cursor editor
+    (pkgs.writeShellScriptBin "cursor" ''
+      CURSOR_DIR="/opt/cursor"
+      CURSOR_APPIMAGE="$CURSOR_DIR/cursor.appimage"
+      
+      mkdir -p "$CURSOR_DIR"
+      
+      if [ ! -f "$CURSOR_APPIMAGE" ]; then
+        echo "Descargando Cursor..."
+        curl -L "https://downloader.cursor.sh/linux/appImage/x64" -o "$CURSOR_APPIMAGE"
+        chmod +x "$CURSOR_APPIMAGE"
+      fi
+      
+      exec "$CURSOR_APPIMAGE" "$@"
+    '')
 
     nodejs
     docker
