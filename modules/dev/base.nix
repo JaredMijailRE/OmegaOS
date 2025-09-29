@@ -23,8 +23,7 @@
     '')
 
     # Herramientas de red
-    nmtui
-    nm-connection-editor
+    networkmanager
     networkmanagerapplet
 
     # Herramientas multimedia y teclas especiales

@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
 {
-    networking.hostName = "sigmaTuring"; 
+    networking.hostName = "Microvac"; 
     networking.networkmanager.enable = true;
 }
