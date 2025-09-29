@@ -46,7 +46,6 @@
       
       # Teclas alternativas para captura (sin Fn) - solo las más comunes
       bindsym XF86Launch1 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Camera exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
     '';
   };
 
