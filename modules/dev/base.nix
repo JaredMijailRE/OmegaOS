@@ -22,6 +22,11 @@
       exec "$CURSOR_APPIMAGE" "$@"
     '')
 
+    # Herramientas de red
+    nmtui
+    nm-connection-editor
+    networkmanagerapplet
+
     # Herramientas multimedia y teclas especiales
     pavucontrol
     brightnessctl
@@ -30,6 +35,12 @@
     xorg.xev
     wmctrl
     swaylock
+
+    # Herramientas de captura de pantalla
+    grim
+    slurp
+    wl-clipboard
+    imagemagick
 
     nodejs
     docker

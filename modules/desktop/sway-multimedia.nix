@@ -38,6 +38,11 @@
       bindsym XF86AudioPlay exec --no-startup-id bash -c "playerctl play-pause && notify-send 'Reproductor: $(playerctl status)'"
       bindsym XF86AudioNext exec --no-startup-id bash -c "playerctl next && notify-send 'Siguiente canción'"
       bindsym XF86AudioPrev exec --no-startup-id bash -c "playerctl previous && notify-send 'Canción anterior'"
+      
+      # Captura de pantalla
+      bindsym Print exec --no-startup-id bash -c "grim -g \"\$(slurp)\" ~/Screenshots/screenshot-\$(date +%Y%m%d-%H%M%S).png && notify-send 'Captura guardada'"
+      bindsym Shift+Print exec --no-startup-id bash -c "grim ~/Screenshots/screenshot-\$(date +%Y%m%d-%H%M%S).png && notify-send 'Captura de pantalla completa guardada'"
+      bindsym Ctrl+Print exec --no-startup-id bash -c "grim -g \"\$(slurp)\" - | wl-copy && notify-send 'Captura copiada al portapapeles'"
     '';
   };
 
@@ -54,6 +59,11 @@
   
   # Configuración de usuarios para audio y video
   users.extraUsers.turing.extraGroups = [ "audio" "pipewire" "video" ];
+
+  # Crear directorio de capturas
+  systemd.tmpfiles.rules = [
+    "d /home/turing/Screenshots 0755 turing users -"
+  ];
 
   # Configuración de hardware para audio
   services.pulseaudio.enable = false;
