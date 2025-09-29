@@ -55,7 +55,6 @@
     alsa.enable = true;
     pulse.enable = true;
     wireplumber.enable = true;
-    xwayland.enable = true;
   };
 
   # Configuración adicional para que Pipewire funcione correctamente
