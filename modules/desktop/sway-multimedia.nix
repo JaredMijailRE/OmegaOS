@@ -46,6 +46,9 @@
       
       # Teclas alternativas para captura (sin Fn) - solo las más comunes
       bindsym XF86Launch1 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      
+      # OBS Studio
+      bindsym $mod+o exec --no-startup-id /etc/nixos/scripts/obs.sh
     '';
   };
 
