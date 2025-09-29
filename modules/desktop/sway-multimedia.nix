@@ -44,29 +44,9 @@
       bindsym Shift+Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh full
       bindsym Ctrl+Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh area
       
-      # Teclas alternativas para captura (sin Fn)
+      # Teclas alternativas para captura (sin Fn) - solo las más comunes
       bindsym XF86Launch1 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Launch2 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Launch3 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Launch4 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Launch5 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Launch6 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Launch7 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Launch8 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Launch9 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86LaunchA exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86LaunchB exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      
-      # Mapeos específicos para teclas de captura
       bindsym XF86Camera exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86Pictures exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym XF86ScreenSaver exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      
-      # Mapeo por código de tecla (5;10u)
-      bindsym --to-code 107 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym --to-code 108 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym --to-code 109 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
-      bindsym --to-code 110 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
     '';
   };
 
