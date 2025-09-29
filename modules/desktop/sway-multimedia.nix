@@ -40,9 +40,9 @@
       bindsym XF86AudioPrev exec --no-startup-id bash -c "playerctl previous && notify-send 'Canción anterior'"
       
       # Captura de pantalla
-      bindsym Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh area
+      bindsym Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
       bindsym Shift+Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh full
-      bindsym Ctrl+Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym Ctrl+Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh area
     '';
   };
 
