@@ -1,63 +1,31 @@
 #!/usr/bin/env bash
 
-# Script para controlar el brillo del dispositivo ideapad
-BRIGHTNESS_FILE="/sys/class/backlight/ideapad/brightness"
-MAX_BRIGHTNESS_FILE="/sys/class/backlight/ideapad/max_brightness"
-BL_POWER_FILE="/sys/class/backlight/ideapad/bl_power"
+# Script para controlar el brillo usando light
+LIGHT_DEVICE="sysfs/backlight/auto"
 
 # Función para obtener el brillo actual
 get_brightness() {
-    cat "$BRIGHTNESS_FILE"
-}
-
-# Función para obtener el brillo máximo
-get_max_brightness() {
-    cat "$MAX_BRIGHTNESS_FILE"
-}
-
-# Función para establecer el brillo
-set_brightness() {
-    local value=$1
-    # Asegurar que el backlight esté encendido
-    echo "0" | sudo tee "$BL_POWER_FILE" > /dev/null
-    echo "$value" | sudo tee "$BRIGHTNESS_FILE" > /dev/null
+    light -s "$LIGHT_DEVICE" -G
 }
 
 # Función para aumentar el brillo
 increase_brightness() {
+    light -s "$LIGHT_DEVICE" -A 10
     local current=$(get_brightness)
-    local max=$(get_max_brightness)
-    local step=$((max / 10))  # 10% del máximo
-    local new=$((current + step))
-    
-    if [ $new -gt $max ]; then
-        new=$max
-    fi
-    
-    set_brightness $new
-    echo "Brillo: $((new * 100 / max))%"
+    echo "Brillo: ${current}%"
 }
 
 # Función para disminuir el brillo
 decrease_brightness() {
+    light -s "$LIGHT_DEVICE" -U 10
     local current=$(get_brightness)
-    local max=$(get_max_brightness)
-    local step=$((max / 10))  # 10% del máximo
-    local new=$((current - step))
-    
-    if [ $new -lt 1 ]; then
-        new=1
-    fi
-    
-    set_brightness $new
-    echo "Brillo: $((new * 100 / max))%"
+    echo "Brillo: ${current}%"
 }
 
 # Función para obtener el porcentaje actual
 get_percentage() {
     local current=$(get_brightness)
-    local max=$(get_max_brightness)
-    echo "$((current * 100 / max))%"
+    echo "${current}%"
 }
 
 # Procesar argumentos
