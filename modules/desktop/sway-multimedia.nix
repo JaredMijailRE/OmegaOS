@@ -48,7 +48,7 @@
   };
 
   # Configuración de hardware para audio
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   
   # Configuración de brillo
   programs.light.enable = true;
