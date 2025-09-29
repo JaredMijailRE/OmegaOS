@@ -49,6 +49,12 @@
     wireplumber.enable = true;
   };
 
+  # Configuración adicional para que Pipewire funcione correctamente
+  security.rtkit.enable = true;
+  
+  # Configuración de usuarios para audio
+  users.extraUsers.turing.extraGroups = [ "audio" "pipewire" ];
+
   # Configuración de hardware para audio
   services.pulseaudio.enable = false;
   
@@ -67,11 +73,11 @@
         scroll_method two_finger
         click_method clickfinger
         accel_profile adaptive
-        pointer_accel 0.5
+        pointer_accel 0.8
         scroll_factor 1.0
         dwt enabled
         dwtp enabled
-        calibration_matrix 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0
+        # calibration_matrix removida - causaba error
       }
     '';
   };
