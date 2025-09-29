@@ -76,62 +76,60 @@
     '';
   };
 
-  # Configuración de notificaciones
-  services.dunst = {
-    enable = true;
-    settings = {
-      global = {
-        font = "JetBrains Mono 10";
-        format = "<b>%s</b>\n%b";
-        markup = "yes";
-        plain_text = "no";
-        indicate_hidden = "yes";
-        alignment = "left";
-        vertical_alignment = "center";
-        show_age_threshold = 60;
-        word_wrap = "yes";
-        ignore_newline = "no";
-        geometry = "300x5-30+20";
-        shrink = "no";
-        transparency = 0;
-        idle_threshold = 120;
-        monitor = 0;
-        follow = "mouse";
-        sticky_history = "yes";
-        line_height = 0;
-        separator_height = 2;
-        padding = 8;
-        horizontal_padding = 8;
-        separator_color = "frame";
-        startup_notification = false;
-        dmenu = "/usr/bin/dmenu -p dunst:";
-        browser = "/usr/bin/xdg-open";
-        title = "Dunst";
-        class = "Dunst";
-        corner_radius = 0;
-        ignore_dbusclose = false;
-        force_xwayland = false;
-        force_xinerama = false;
-        mouse_left_click = "close_current";
-        mouse_middle_click = "do_action, close_current";
-        mouse_right_click = "close_all";
-      };
-      urgency_low = {
-        background = "#1e1e1e";
-        foreground = "#ffffff";
-        timeout = 10;
-      };
-      urgency_normal = {
-        background = "#285577";
-        foreground = "#ffffff";
-        timeout = 10;
-      };
-      urgency_critical = {
-        background = "#900000";
-        foreground = "#ffffff";
-        frame_color = "#ff0000";
-        timeout = 0;
-      };
-    };
+  # Configuración de notificaciones - usando environment.etc para dunst
+  environment.etc."dunst/dunstrc" = {
+    text = ''
+      [global]
+      font = "JetBrains Mono 10"
+      format = "<b>%s</b>\n%b"
+      markup = yes
+      plain_text = no
+      indicate_hidden = yes
+      alignment = left
+      vertical_alignment = center
+      show_age_threshold = 60
+      word_wrap = yes
+      ignore_newline = no
+      geometry = "300x5-30+20"
+      shrink = no
+      transparency = 0
+      idle_threshold = 120
+      monitor = 0
+      follow = mouse
+      sticky_history = yes
+      line_height = 0
+      separator_height = 2
+      padding = 8
+      horizontal_padding = 8
+      separator_color = frame
+      startup_notification = false
+      dmenu = "/usr/bin/dmenu -p dunst:"
+      browser = "/usr/bin/xdg-open"
+      title = "Dunst"
+      class = "Dunst"
+      corner_radius = 0
+      ignore_dbusclose = false
+      force_xwayland = false
+      force_xinerama = false
+      mouse_left_click = close_current
+      mouse_middle_click = do_action, close_current
+      mouse_right_click = close_all
+
+      [urgency_low]
+      background = "#1e1e1e"
+      foreground = "#ffffff"
+      timeout = 10
+
+      [urgency_normal]
+      background = "#285577"
+      foreground = "#ffffff"
+      timeout = 10
+
+      [urgency_critical]
+      background = "#900000"
+      foreground = "#ffffff"
+      frame_color = "#ff0000"
+      timeout = 0
+    '';
   };
 }
