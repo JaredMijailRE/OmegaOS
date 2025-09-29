@@ -24,9 +24,9 @@
       # Micrófono
       bindsym XF86AudioMicMute exec --no-startup-id bash -c "pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send 'Micrófono $(pactl get-source-mute @DEFAULT_SOURCE@ | grep -o 'yes\|no')'"
       
-      # Brillo (con notificaciones) - usando dispositivo ideapad
-      bindsym XF86MonBrightnessUp exec --no-startup-id bash -c "brightnessctl -d ideapad set +10% && notify-send 'Brillo: $(brightnessctl -d ideapad get)%'"
-      bindsym XF86MonBrightnessDown exec --no-startup-id bash -c "brightnessctl -d ideapad set 10%- && notify-send 'Brillo: $(brightnessctl -d ideapad get)%'"
+      # Brillo (con notificaciones) - usando script personalizado
+      bindsym XF86MonBrightnessUp exec --no-startup-id bash -c "/etc/nixos/scripts/brightness-control.sh up && notify-send 'Brillo: $(/etc/nixos/scripts/brightness-control.sh get)'"
+      bindsym XF86MonBrightnessDown exec --no-startup-id bash -c "/etc/nixos/scripts/brightness-control.sh down && notify-send 'Brillo: $(/etc/nixos/scripts/brightness-control.sh get)'"
       
       # Bloqueo de pantalla
       bindsym XF86ScreenSaver exec swaylock
@@ -52,8 +52,8 @@
   # Configuración adicional para que Pipewire funcione correctamente
   security.rtkit.enable = true;
   
-  # Configuración de usuarios para audio
-  users.extraUsers.turing.extraGroups = [ "audio" "pipewire" ];
+  # Configuración de usuarios para audio y video
+  users.extraUsers.turing.extraGroups = [ "audio" "pipewire" "video" ];
 
   # Configuración de hardware para audio
   services.pulseaudio.enable = false;
