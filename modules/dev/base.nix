@@ -22,6 +22,15 @@
       exec "$CURSOR_APPIMAGE" "$@"
     '')
 
+    # Herramientas multimedia y teclas especiales
+    pavucontrol
+    brightnessctl
+    playerctl
+    acpi
+    xorg.xev
+    wmctrl
+    swaylock
+
     nodejs
     docker
     go

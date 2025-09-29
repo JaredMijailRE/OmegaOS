@@ -1,42 +1,43 @@
 { config, pkgs, ... }:
 
 {
+  # Paquetes necesarios para multimedia
+  environment.systemPackages = with pkgs; [
+    pulseaudio # Para pactl
+    brightnessctl
+    playerctl
+    libnotify # Para notify-send
+    swaylock
+    networkmanager # Para nmcli
+  ];
+
   # Configuración de teclas multimedia para Sway
   environment.etc."sway/config.d/multimedia-keys.conf" = {
     text = ''
       # Teclas multimedia
       
-      # Volumen
-      bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-      bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-      bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+      # Volumen (con notificaciones)
+      bindsym XF86AudioRaiseVolume exec --no-startup-id bash -c "pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-send 'Volumen: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -o '[0-9]*%' | head -1)'"
+      bindsym XF86AudioLowerVolume exec --no-startup-id bash -c "pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-send 'Volumen: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -o '[0-9]*%' | head -1)'"
+      bindsym XF86AudioMute exec --no-startup-id bash -c "pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send 'Audio $(pactl get-sink-mute @DEFAULT_SINK@ | grep -o 'yes\|no')'"
       
       # Micrófono
-      bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+      bindsym XF86AudioMicMute exec --no-startup-id bash -c "pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send 'Micrófono $(pactl get-source-mute @DEFAULT_SOURCE@ | grep -o 'yes\|no')'"
       
-      # Brillo
-      bindsym XF86MonBrightnessUp exec brightnessctl set +10%
-      bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+      # Brillo (con notificaciones)
+      bindsym XF86MonBrightnessUp exec --no-startup-id bash -c "brightnessctl set +10% && notify-send 'Brillo: $(brightnessctl get)%'"
+      bindsym XF86MonBrightnessDown exec --no-startup-id bash -c "brightnessctl set 10%- && notify-send 'Brillo: $(brightnessctl get)%'"
       
       # Bloqueo de pantalla
       bindsym XF86ScreenSaver exec swaylock
       
       # Modo avión (desactivar/activar WiFi)
-      bindsym XF86WLAN exec nmcli radio wifi toggle
+      bindsym XF86WLAN exec --no-startup-id bash -c "nmcli radio wifi toggle && notify-send 'WiFi $(nmcli radio wifi | grep -o 'enabled\|disabled')'"
       
       # Reproductor multimedia
-      bindsym XF86AudioPlay exec playerctl play-pause
-      bindsym XF86AudioNext exec playerctl next
-      bindsym XF86AudioPrev exec playerctl previous
-      
-      # Notificaciones de volumen
-      bindsym XF86AudioRaiseVolume exec --no-startup-id notify-send "Volumen: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -o '[0-9]*%' | head -1)"
-      bindsym XF86AudioLowerVolume exec --no-startup-id notify-send "Volumen: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -o '[0-9]*%' | head -1)"
-      bindsym XF86AudioMute exec --no-startup-id notify-send "Audio $(pactl get-sink-mute @DEFAULT_SINK@ | grep -o 'yes\|no')"
-      
-      # Notificaciones de brillo
-      bindsym XF86MonBrightnessUp exec --no-startup-id notify-send "Brillo: $(brightnessctl get)%"
-      bindsym XF86MonBrightnessDown exec --no-startup-id notify-send "Brillo: $(brightnessctl get)%"
+      bindsym XF86AudioPlay exec --no-startup-id bash -c "playerctl play-pause && notify-send 'Reproductor: $(playerctl status)'"
+      bindsym XF86AudioNext exec --no-startup-id bash -c "playerctl next && notify-send 'Siguiente canción'"
+      bindsym XF86AudioPrev exec --no-startup-id bash -c "playerctl previous && notify-send 'Canción anterior'"
     '';
   };
 
@@ -45,6 +46,7 @@
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
+    wireplumber.enable = true;
   };
 
   # Configuración de hardware para audio
@@ -52,4 +54,84 @@
   
   # Configuración de brillo
   programs.light.enable = true;
+
+  # Configuración mejorada del trackpad
+  environment.etc."sway/config.d/trackpad.conf" = {
+    text = ''
+      # Configuración mejorada del trackpad
+      input type:touchpad {
+        tap enabled
+        natural_scroll enabled
+        middle_emulation enabled
+        tap_button_map lrm
+        scroll_method two_finger
+        click_method clickfinger
+        accel_profile adaptive
+        pointer_accel 0.5
+        scroll_factor 1.0
+        dwt enabled
+        dwtp enabled
+        calibration_matrix 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0
+      }
+    '';
+  };
+
+  # Configuración de notificaciones
+  services.dunst = {
+    enable = true;
+    settings = {
+      global = {
+        font = "JetBrains Mono 10";
+        format = "<b>%s</b>\n%b";
+        markup = "yes";
+        plain_text = "no";
+        indicate_hidden = "yes";
+        alignment = "left";
+        vertical_alignment = "center";
+        show_age_threshold = 60;
+        word_wrap = "yes";
+        ignore_newline = "no";
+        geometry = "300x5-30+20";
+        shrink = "no";
+        transparency = 0;
+        idle_threshold = 120;
+        monitor = 0;
+        follow = "mouse";
+        sticky_history = "yes";
+        line_height = 0;
+        separator_height = 2;
+        padding = 8;
+        horizontal_padding = 8;
+        separator_color = "frame";
+        startup_notification = false;
+        dmenu = "/usr/bin/dmenu -p dunst:";
+        browser = "/usr/bin/xdg-open";
+        title = "Dunst";
+        class = "Dunst";
+        corner_radius = 0;
+        ignore_dbusclose = false;
+        force_xwayland = false;
+        force_xinerama = false;
+        mouse_left_click = "close_current";
+        mouse_middle_click = "do_action, close_current";
+        mouse_right_click = "close_all";
+      };
+      urgency_low = {
+        background = "#1e1e1e";
+        foreground = "#ffffff";
+        timeout = 10;
+      };
+      urgency_normal = {
+        background = "#285577";
+        foreground = "#ffffff";
+        timeout = 10;
+      };
+      urgency_critical = {
+        background = "#900000";
+        foreground = "#ffffff";
+        frame_color = "#ff0000";
+        timeout = 0;
+      };
+    };
+  };
 }

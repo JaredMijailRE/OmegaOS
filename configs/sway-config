@@ -6,6 +6,10 @@ set $mod Mod4
 # Modo por defecto
 set $mode default
 
+# Incluir archivos de configuración adicionales
+include /etc/sway/config.d/multimedia-keys.conf
+include /etc/sway/config.d/trackpad.conf
+
 # Atajos básicos esenciales
 bindsym $mod+Shift+q exit
 bindsym $mod+Return exec kitty
@@ -64,15 +68,10 @@ client.focused #458588 #458588 #ffffff #458588
 client.focused_inactive #3c3836 #3c3836 #ffffff #3c3836
 client.unfocused #3c3836 #3c3836 #ffffff #3c3836
 
-# Configuración de entrada
+# Configuración de entrada básica (la configuración avanzada está en trackpad.conf)
 input type:keyboard {
   xkb_layout us
   xkb_variant ""
-}
-
-input type:touchpad {
-  tap enabled
-  natural_scroll enabled
 }
 
 # Configuración de salida
