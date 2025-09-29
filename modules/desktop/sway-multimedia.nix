@@ -67,6 +67,11 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
+    config = {
+      common = {
+        default = "*";
+      };
+    };
   };
   
   # Configuración de usuarios para audio y video
@@ -86,6 +91,14 @@
     GDK_BACKEND = "wayland";
     MOZ_ENABLE_WAYLAND = "1";
     WLR_NO_HARDWARE_CURSORS = "1";
+  };
+
+  # Script para iniciar el portal automáticamente
+  environment.etc."sway/config.d/portal.conf" = {
+    text = ''
+      # Iniciar xdg-desktop-portal-wlr automáticamente
+      exec --no-startup-id systemctl --user start xdg-desktop-portal-wlr
+    '';
   };
 
   # Configuración de hardware para audio

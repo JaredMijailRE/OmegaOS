@@ -9,6 +9,7 @@ set $mode default
 # Incluir archivos de configuración adicionales
 include /etc/sway/config.d/multimedia-keys.conf
 include /etc/sway/config.d/trackpad.conf
+include /etc/sway/config.d/portal.conf
 
 # Atajos básicos esenciales
 bindsym $mod+Shift+q exit
