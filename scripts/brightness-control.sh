@@ -3,6 +3,7 @@
 # Script para controlar el brillo del dispositivo ideapad
 BRIGHTNESS_FILE="/sys/class/backlight/ideapad/brightness"
 MAX_BRIGHTNESS_FILE="/sys/class/backlight/ideapad/max_brightness"
+BL_POWER_FILE="/sys/class/backlight/ideapad/bl_power"
 
 # Función para obtener el brillo actual
 get_brightness() {
@@ -17,6 +18,8 @@ get_max_brightness() {
 # Función para establecer el brillo
 set_brightness() {
     local value=$1
+    # Asegurar que el backlight esté encendido
+    echo "0" | sudo tee "$BL_POWER_FILE" > /dev/null
     echo "$value" | sudo tee "$BRIGHTNESS_FILE" > /dev/null
 }
 
