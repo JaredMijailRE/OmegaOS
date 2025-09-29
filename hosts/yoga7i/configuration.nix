@@ -12,6 +12,7 @@
       ../../modules/hardware/network.nix
       ../../modules/hardware/power.nix
       ../../modules/dev/base.nix
+      ../../modules/desktop/sway-multimedia.nix
       ../../modules/login/agreety.nix
     ];
 
@@ -103,6 +104,8 @@
       firefox
     ];
   };
+
+  # Configuración de teclas multimedia - movida al módulo sway-multimedia.nix
 
   # Configuración de sistema
   system.stateVersion = "25.05";
