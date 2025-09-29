@@ -43,6 +43,19 @@
       bindsym Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
       bindsym Shift+Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh full
       bindsym Ctrl+Print exec --no-startup-id /etc/nixos/scripts/screenshot.sh area
+      
+      # Teclas alternativas para captura (sin Fn)
+      bindsym XF86Launch1 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86Launch2 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86Launch3 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86Launch4 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86Launch5 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86Launch6 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86Launch7 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86Launch8 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86Launch9 exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86LaunchA exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
+      bindsym XF86LaunchB exec --no-startup-id /etc/nixos/scripts/screenshot.sh clipboard
     '';
   };
 
