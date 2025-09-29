@@ -27,6 +27,6 @@
   # Parámetros básicos del kernel para compatibilidad
   boot.kernelParams = [
     "acpi_osi=Linux"
-    "acpi_backlight=vendor"
+    "acpi_backlight=native"
   ];
 }
