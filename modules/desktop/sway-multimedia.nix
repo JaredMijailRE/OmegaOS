@@ -55,10 +55,21 @@
     alsa.enable = true;
     pulse.enable = true;
     wireplumber.enable = true;
+    xwayland.enable = true;
   };
 
   # Configuración adicional para que Pipewire funcione correctamente
   security.rtkit.enable = true;
+
+  # Configuración de xdg-desktop-portal para Wayland
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    gtkUsePortal = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+  };
   
   # Configuración de usuarios para audio y video
   users.extraUsers.turing.extraGroups = [ "audio" "pipewire" "video" ];
@@ -67,6 +78,17 @@
   systemd.tmpfiles.rules = [
     "d /home/turing/Screenshots 0755 turing users -"
   ];
+
+  # Variables de entorno para Wayland
+  environment.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "sway";
+    XDG_SESSION_DESKTOP = "sway";
+    XDG_SESSION_TYPE = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    GDK_BACKEND = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
 
   # Configuración de hardware para audio
   services.pulseaudio.enable = false;

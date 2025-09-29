@@ -41,6 +41,13 @@
     wl-clipboard
     imagemagick
 
+    # Herramientas para compartir pantalla
+    wf-recorder
+    obs-studio
+    xdg-desktop-portal
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
+
     nodejs
     docker
     go
