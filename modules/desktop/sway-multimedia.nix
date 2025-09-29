@@ -24,9 +24,9 @@
       # Micrófono
       bindsym XF86AudioMicMute exec --no-startup-id bash -c "pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send 'Micrófono $(pactl get-source-mute @DEFAULT_SOURCE@ | grep -o 'yes\|no')'"
       
-      # Brillo (con notificaciones)
-      bindsym XF86MonBrightnessUp exec --no-startup-id bash -c "brightnessctl set +10% && notify-send 'Brillo: $(brightnessctl get)%'"
-      bindsym XF86MonBrightnessDown exec --no-startup-id bash -c "brightnessctl set 10%- && notify-send 'Brillo: $(brightnessctl get)%'"
+      # Brillo (con notificaciones) - usando dispositivo ideapad
+      bindsym XF86MonBrightnessUp exec --no-startup-id bash -c "brightnessctl -d ideapad set +10% && notify-send 'Brillo: $(brightnessctl -d ideapad get)%'"
+      bindsym XF86MonBrightnessDown exec --no-startup-id bash -c "brightnessctl -d ideapad set 10%- && notify-send 'Brillo: $(brightnessctl -d ideapad get)%'"
       
       # Bloqueo de pantalla
       bindsym XF86ScreenSaver exec swaylock
