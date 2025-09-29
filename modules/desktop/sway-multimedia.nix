@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  # Paquetes necesarios para multimedia
+  # Paquetes necesarios para multimedia y compartir pantalla
   environment.systemPackages = with pkgs; [
     pulseaudio # Para pactl
     brightnessctl
@@ -9,6 +9,11 @@
     libnotify # Para notify-send
     swaylock
     networkmanager # Para nmcli
+    # Paquetes para compartir pantalla
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
+    wayland
+    wl-clipboard
   ];
 
   # Configuración de teclas multimedia para Sway
@@ -63,19 +68,71 @@
   # Configuración adicional para que Pipewire funcione correctamente
   security.rtkit.enable = true;
 
-  # Configuración de xdg-desktop-portal para Wayland
+  # Configuración de xdg-desktop-portal para Wayland (compartir pantalla)
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
     extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
     ];
     config = {
       common = {
-        default = "*";
+        default = ["wlr" "gtk"];
+      };
+      sway = {
+        default = ["wlr" "gtk"];
+        "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
+        "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
       };
     };
   };
+
+  # Configuración forzada de variables de entorno para portales
+  systemd.user.services.xdg-desktop-portal-wlr = {
+    wantedBy = [ "default.target" ];
+    after = [ "graphical-session.target" ];
+    environment = {
+      WAYLAND_DISPLAY = "wayland-1";
+      XDG_CURRENT_DESKTOP = "sway";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_RUNTIME_DIR = "/run/user/1000";
+    };
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+  };
+
+  # Configuración mejorada para el portal principal
+  systemd.user.services.xdg-desktop-portal = {
+    environment = {
+      WAYLAND_DISPLAY = "wayland-1";
+      XDG_CURRENT_DESKTOP = "sway";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_RUNTIME_DIR = "/run/user/1000";
+    };
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+  };
+
+  # Servicios necesarios para compartir pantalla
+  services.dbus.enable = true;
+
+  # Configuración específica para xdg-desktop-portal-wlr
+  environment.etc."xdg/xdg-desktop-portal-wlr/config".text = ''
+    [screencast]
+    output_name=
+    max_fps=30
+    chooser_type=simple
+    chooser_cmd=${pkgs.slurp}/bin/slurp -f %o -or
+    
+    [screenshot]
+    output_name=
+    chooser_type=simple
+    chooser_cmd=${pkgs.slurp}/bin/slurp -f %o -or
+  '';
   
   # Configuración de usuarios para audio y video
   users.extraUsers.turing.extraGroups = [ "audio" "pipewire" "video" ];
@@ -85,7 +142,7 @@
     "d /home/turing/Screenshots 0755 turing users -"
   ];
 
-  # Variables de entorno para Wayland
+  # Variables de entorno para Wayland y compartir pantalla
   environment.sessionVariables = {
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_DESKTOP = "sway";
@@ -94,15 +151,11 @@
     GDK_BACKEND = "wayland";
     MOZ_ENABLE_WAYLAND = "1";
     WLR_NO_HARDWARE_CURSORS = "1";
+    # Variables para compartir pantalla
+    XDG_DESKTOP_PORTAL_WLR_CONFIG_FILE = "/etc/xdg/xdg-desktop-portal-wlr/config";
+    WLR_DRM_NO_ATOMIC = "1";
   };
 
-  # Script para iniciar el portal automáticamente
-  environment.etc."sway/config.d/portal.conf" = {
-    text = ''
-      # Iniciar xdg-desktop-portal-wlr automáticamente
-      exec --no-startup-id /etc/nixos/scripts/start-portal.sh
-    '';
-  };
 
   # Configuración de hardware para audio
   services.pulseaudio.enable = false;

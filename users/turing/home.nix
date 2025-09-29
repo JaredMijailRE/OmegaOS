@@ -15,7 +15,8 @@
     tree
     curl
     wget
-    
+    spotify
+    vscode-fhs    
     # Aplicaciones específicas del usuario
     inputs.zen-browser.packages.${pkgs.system}.default
     fuzzel
@@ -46,6 +47,10 @@
         enable_audio_bell = false;
         confirm_os_window_close = 0;
       };
+    };
+
+    gemini-cli = {
+	enable = true;
     };
   };
 

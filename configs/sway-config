@@ -9,7 +9,9 @@ set $mode default
 # Incluir archivos de configuración adicionales
 include /etc/sway/config.d/multimedia-keys.conf
 include /etc/sway/config.d/trackpad.conf
-include /etc/sway/config.d/portal.conf
+
+# Script simple para configurar portales (ejecutar manualmente si es necesario)
+# exec_always /etc/nixos/scripts/fix-portals-user.sh
 
 # Atajos básicos esenciales
 bindsym $mod+Shift+q exit
