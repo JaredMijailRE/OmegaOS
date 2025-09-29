@@ -1,0 +1,1 @@
+sudo nixos-rebuild build --flake .#yoga7i --impure

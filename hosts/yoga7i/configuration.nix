@@ -11,7 +11,6 @@
       ../../modules/hardware/boot.nix
       ../../modules/hardware/network.nix
       ../../modules/hardware/power.nix
-      ../../modules/desktop/river.nix
       ../../modules/dev/base.nix
       ../../modules/login/agreety.nix
     ];
@@ -93,8 +92,15 @@
     description = "turing";
     extraGroups =  ["seat"  "networkmanager" "wheel" "audio" "video" "input" "plugdev" "power" ];
     packages = with pkgs; [
-      firefox  # Para probar aplicaciones en Sway
-      sway  # Window manager principal
+      sway
+      wayland
+      wl-clipboard
+      grim
+      slurp
+      wf-recorder
+      fuzzel
+      kitty
+      firefox
     ];
   };
 

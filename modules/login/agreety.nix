@@ -4,18 +4,19 @@
   # Instalar greetd y tuigreet
   environment.systemPackages = with pkgs; [
     tuigreet
+    sway
   ];
 
   # Crear archivos .desktop para las sesiones
-  environment.etc."xdg/wayland-sessions/sway.desktop" = {
-    text = ''
-      [Desktop Entry]
-      Name=Sway
-      Comment=Sway Wayland Compositor
-      Exec=env XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=sway ${pkgs.sway}/bin/sway
-      Type=Application
-    '';
-  };
+      environment.etc."xdg/wayland-sessions/sway.desktop" = {
+        text = ''
+          [Desktop Entry]
+          Name=Sway
+          Comment=Sway Wayland Compositor
+          Exec=env XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=sway ${pkgs.sway}/bin/sway
+          Type=Application
+        '';
+      };
 
 
   environment.etc."xdg/wayland-sessions/console.desktop" = {

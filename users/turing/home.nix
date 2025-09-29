@@ -49,103 +49,48 @@
     };
   };
 
-  # Variables de entorno
+  # Variables de entorno básicas del usuario
   home.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "firefox";
     TERMINAL = "kitty";
+    
+    # ========================================
+    # CONFIGURACIÓN DE WINDOW MANAGER ACTIVO
+    # ========================================
+    # Para cambiar entre Sway y DWL, modifica estas variables:
+    
+    # Para Sway (Wayland) - ACTIVO:
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
+    
+    # Para DWL (Wayland) - INACTIVO (descomenta para activar):
+    # XDG_CURRENT_DESKTOP = "dwl";
+    # XDG_SESSION_DESKTOP = "dwl";
+    # XDG_SESSION_TYPE = "wayland";
   };
 
-  # Configuración simple de Sway
+
+
+  # ========================================
+  # CONFIGURACIÓN DE WINDOW MANAGER ACTIVO
+  # ========================================
+  # Las configuraciones de window manager están ahora en módulos separados:
+  # - Sway: modules/home/sway-config.nix (ACTIVO)
+  # - DWL: modules/home/dwl-config.nix (INACTIVO - descomenta en imports para activar)
+
+  # Configuración de Sway (ACTIVA) - usando archivo externo
   xdg.configFile."sway/config" = {
-    text = ''
-      # Configuración básica de Sway sin efectos
-
-      # Variables de entorno
-      set $mod Mod4
-
-      # Modo por defecto
-      set $mode default
-
-      # Atajos básicos esenciales
-      bindsym $mod+Shift+q exit
-      bindsym $mod+Return exec kitty
-      bindsym $mod+d exec fuzzel
-      bindsym $mod+b exec firefox
-      
-      # Cerrar aplicaciones
-      bindsym $mod+Shift+c kill
-      bindsym $mod+q kill
-
-      # Navegación de ventanas
-      bindsym $mod+j focus down
-      bindsym $mod+k focus up
-      bindsym $mod+h focus left
-      bindsym $mod+l focus right
-
-      # Mover ventanas
-      bindsym $mod+Shift+j move down
-      bindsym $mod+Shift+k move up
-      bindsym $mod+Shift+h move left
-      bindsym $mod+Shift+l move right
-
-      # Cambiar tamaño de ventanas
-      bindsym $mod+Shift+Left resize shrink width 10px
-      bindsym $mod+Shift+Right resize grow width 10px
-      bindsym $mod+Shift+Down resize grow height 10px
-      bindsym $mod+Shift+Up resize shrink height 10px
-
-      # Layout
-      bindsym $mod+s layout stacking
-      bindsym $mod+w layout tabbed
-      bindsym $mod+e layout toggle split
-      bindsym $mod+f fullscreen toggle
-      bindsym $mod+Shift+space floating toggle
-
-      # Workspaces
-      bindsym $mod+1 workspace number 1
-      bindsym $mod+2 workspace number 2
-      bindsym $mod+3 workspace number 3
-      bindsym $mod+4 workspace number 4
-      bindsym $mod+5 workspace number 5
-
-      bindsym $mod+Shift+1 move container to workspace number 1
-      bindsym $mod+Shift+2 move container to workspace number 2
-      bindsym $mod+Shift+3 move container to workspace number 3
-      bindsym $mod+Shift+4 move container to workspace number 4
-      bindsym $mod+Shift+5 move container to workspace number 5
-
-      # Configuración de ventanas
-      default_border pixel 2
-      default_floating_border pixel 2
-      hide_edge_borders smart
-
-      # Colores simples
-      client.focused #458588 #458588 #ffffff #458588
-      client.focused_inactive #3c3836 #3c3836 #ffffff #3c3836
-      client.unfocused #3c3836 #3c3836 #ffffff #3c3836
-
-      # Configuración de entrada
-      input type:keyboard {
-        xkb_layout us
-        xkb_variant ""
-      }
-
-      input type:touchpad {
-        tap enabled
-        natural_scroll enabled
-      }
-
-      # Configuración de salida
-      output * bg #000000 solid_color
-    '';
+    source = pkgs.writeText "sway-config" (builtins.readFile "/etc/nixos/configs/sway-config");
   };
 
-  # Configuración de servicios
+  # Configuración de DWL (INACTIVA) - usando archivo externo
+  # xdg.configFile."dwl/config" = {
+  #   source = pkgs.writeText "dwl-config" (builtins.readFile "/etc/nixos/configs/dwl-config");
+  # };
+
   services = {
-    # No hay servicios específicos del usuario por ahora
+
   };
 }
