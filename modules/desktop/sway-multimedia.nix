@@ -100,7 +100,7 @@
   environment.etc."sway/config.d/portal.conf" = {
     text = ''
       # Iniciar xdg-desktop-portal-wlr automáticamente
-      exec --no-startup-id systemctl --user start xdg-desktop-portal-wlr
+      exec --no-startup-id bash -c "export WAYLAND_DISPLAY=wayland-1 && export XDG_RUNTIME_DIR=/run/user/1000 && systemctl --user start xdg-desktop-portal-wlr"
     '';
   };
 
